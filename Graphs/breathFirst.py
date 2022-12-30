@@ -26,4 +26,22 @@ def bfs(visited, graph, node):
     print(visited)
 
 
-bfs(visited, graph, 'A')
+queue_updated = []
+
+
+def bfsUpdated(visited_Nodes, graph_Provided, node):
+    visited_Nodes.append(node)
+    queue_updated.append(node)
+
+    while len(queue_updated) > 0:
+        s = queue_updated.pop(0)
+        print(s)
+        for nei in graph_Provided[s]:
+            if nei not in visited_Nodes:
+                queue_updated.append(nei)
+                visited_Nodes.append(nei)
+
+
+bfsUpdated(visited, graph, 'C')
+
+# bfs(visited, graph, 'A')

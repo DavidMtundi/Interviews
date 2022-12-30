@@ -21,21 +21,25 @@ Example
 
 
 class Solution:
-    def connectedComponentsCount(self, graph):
-        traversed_nodes = {}
-        count = 0
-        for node in graph:
-            if self.traverseNode(graph, node, traversed_nodes):
-                count += 1
-        print(count)
+    # This method is for iterating through the nodes
+    dict_traversed = []
+    count = 0
 
-    def traverseNode(self, graph, node, traverse_nodes):
-        if node in traverse_nodes:
-            return False
-        traverse_nodes[node] = node
-        for sub_node in graph[node]:
-            self.traverseNode(graph, sub_node, traverse_nodes)
-        return True
+    def connectedComponentsCount(self, graph):
+        if graph is None or len(graph) < 1:
+            return self.count
+        for node in graph:
+            if node not in self.dict_traversed:
+                self.count += 1
+                self.dict_traversed.append(node)
+                self.traverse_Neighbours(graph, node)
+        return self.count
+
+    def traverse_Neighbours(self, graph, node):
+        for nei in graph[node]:
+            if nei not in self.dict_traversed:
+                self.dict_traversed.append(nei)
+                self.traverse_Neighbours(graph, nei)
 
 
 sol = Solution()
@@ -46,7 +50,13 @@ input = {
     8: [0, 5],
     2: [3, 4],
     3: [2, 4],
-    4: [3, 2]
+    4: [3, 2],
+    7: [6, 9],
+    6: [],
+    9: [],
+    10: [12, 13],
+    12: [],
+    13: []
 
 }
-sol.connectedComponentsCount(graph=input)
+print(sol.connectedComponentsCount(graph=input))
